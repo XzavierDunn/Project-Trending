@@ -1,0 +1,12 @@
+api.home_timeline()
+^^^ That returns a type 'status'
+
+If you do a forloop using 'tweet' then you can use 'tweet.author.name' or 'tweet.user.name' 
+to get the name of whoever tweeted.
+
+    (tweet.text) - Returns the body of that tweet.
+    (tweet.user.screen_name) - Returns the user's screen_name
+    (tweet.user.location) - Returns the location, if there is one, at the time of the tweet.
+    (tweet.created_at) - Returns the time the tweet was tweeted.
+    (tweet.coordinates) - Returns the coordinates of the location the tweet was created if the user's
+                          privacy settings are wack.
