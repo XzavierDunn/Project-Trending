@@ -12,11 +12,11 @@ auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
 
 
-def process_or_store(tweet):
-    file = open('tweets.json', 'w+')
-    file.write(json.dumps(tweet))
-    file.close()
-    # print(json.dumps(tweet), '\n')
+# def process_or_store(tweet):
+#     file = open('tweets.json', 'w+')
+#     file.write(json.dumps(tweet))
+#     file.close()
+#     # print(json.dumps(tweet), '\n')
 
 
 # public_tweets = api.home_timeline()
@@ -28,14 +28,29 @@ def process_or_store(tweet):
 #     print(tweet.coordinates)
 
 
-trending = api.trends_place(1)
+# trending = api.trends_place(2427032)
+# print(trending)
 
-x = 0
-for i in trending:
-    for trends in i['trends']:
-        print(trends['name'])
-        print(trends['tweet_volume'])
-        # print(trends[x]['name'])
-        # print(trends[x]['tweet_volume'])
-        x += 1
-        print(x)
+# x = 0
+# for i in trending:
+#     for trends in i['trends']:
+#         print(trends['name'])
+#         print(trends['url'])
+#         print(trends['tweet_volume'])
+#         x += 1
+#         print(x)
+
+# 39.771726, -86.156114
+
+# location = api.trends_closest(39.771726, -86.156114)
+# print(location[0]['woeid'])
+
+
+# mapquest api key G7GTGs1Pf62DjHNWUAcsu8Jn7bxjNJvz
+
+# r = requests.get('http://www.mapquestapi.com/geocoding/v1/address?key=G7GTGs1Pf62DjHNWUAcsu8Jn7bxjNJvz&location=indianapolis')
+# for i in r.json()['results']:
+#         x = i['locations'][0]['latLng']
+
+# print(x['lat'])
+# print(x['lng'])
