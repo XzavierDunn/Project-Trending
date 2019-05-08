@@ -41,6 +41,7 @@ class GlobalModel(db.Model):
 
     @staticmethod
     def getCoords(location):
+        clear()
         r = requests.get(f'http://www.mapquestapi.com/geocoding/v1/address?key=G7GTGs1Pf62DjHNWUAcsu8Jn7bxjNJvz&location={location}')
         for i in r.json()['results']:
                 x = i['locations'][0]['latLng']

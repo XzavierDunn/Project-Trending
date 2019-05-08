@@ -21,7 +21,7 @@ def global_trending():
             if trends['url'] == None:
                 trends['url'] = 'N/A'
 
-            if trends['tweet_volume'] == None or 'None':
+            if trends['tweet_volume'] == None:
                 trends['tweet_volume'] = 0
 
             x = {
