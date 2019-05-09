@@ -11,6 +11,10 @@ global_schema = GlobalSchema()
 # Endpoint to return whatever is globally trending on twitter
 @global_api.route('/', methods=['GET'])
 def global_trending():
+    tweets = GlobalModel.getGlobal()
+    for tweet in tweets:
+        GlobalModel.delete(tweet)
+
     trending = tweepyAPI.trends_place(1)
     x = json.dumps(trending)
     for i in trending:
@@ -29,7 +33,6 @@ def global_trending():
                 'url' : trends['url'],
                 'tweets': trends['tweet_volume']
             }
-            print(x, ' x ======================')
 
             data, error = global_schema.load(x)
 
@@ -56,9 +59,6 @@ def locate_trending():
     x = json.dumps(trending)
 
     return custom_response(x, 200)
-
-
-
 
 
 def custom_response(res, status_code):
