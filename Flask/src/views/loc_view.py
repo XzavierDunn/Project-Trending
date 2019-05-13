@@ -2,26 +2,21 @@
 from ..doc import *
 import json
 from flask import json, request, Response, Blueprint, g
-from ..models.globalT import GlobalModel, GlobalSchema
+from ..models.locT import LocModel, LocSchema
 
 
-global_api = Blueprint('Globaltweets', __name__)
-global_schema = GlobalSchema()
+loc_api = Blueprint('LocTweets', __name__)
+loc_schema = LocSchema()
 
-# Endpoint to return whats in the db
-@global_api.route('/', methods=['GET'])
-def glob():
-    x = GlobalModel.getGlobal()
-    data = global_schema.dump(x, many=True).data
-    return custom_response(data, 200)
-
-# Endpoint to return whatever is globally trending on twitter and save it
-@global_api.route('glob/', methods=['GET'])
-def global_trending():
-    GlobalModel.clear()
-    tweets = GlobalModel.getGlobal()
-
-    trending = tweepyAPI.trends_place(1)
+# Endpoint for location based trends on twitter
+@loc_api.route('<location>/', methods=['GET'])
+def locate_trending(location):
+    LocModel.clear()
+    # staticmethod that takes in a location and returns coordinates
+    str(location)
+    coords = LocModel.getCoords(location)
+    woeid = LocModel.woeid(coords)
+    trending = tweepyAPI.trends_place(woeid)
     x = json.dumps(trending)
     for i in trending:
         for trends in i['trends']:        
@@ -40,18 +35,26 @@ def global_trending():
                 'tweets': trends['tweet_volume']
             }
 
-            data, error = global_schema.load(x)
+            data, error = loc_schema.load(x)
 
             if error:
                 print(error)
                 return custom_response(error, 404)
 
-            globaltweet = GlobalModel(data)
-            globaltweet.save()
+            loctweet = LocModel(data)
+            loctweet.save()
+
+    tweets = LocModel.getLoc()
+    data = loc_schema.dump(tweets, many=True).data
+    return custom_response(data, 200)
+ 
 
 
-    tweets = GlobalModel.getGlobal()
-    data = global_schema.dump(tweets, many=True).data
+# Endpoint to return whats in the db
+@loc_api.route('/', methods=['GET'])
+def glob():
+    x = LocModel.getLoc()
+    data = loc_schema.dump(x, many=True).data
     return custom_response(data, 200)
 
 
