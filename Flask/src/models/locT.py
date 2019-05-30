@@ -5,6 +5,7 @@ from ..doc import *
 import requests
 from flask import Response, json
 
+
 class LocModel(db.Model):
     __tablename__ = 'locTrends'
 

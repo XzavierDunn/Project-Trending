@@ -4,7 +4,6 @@ import json
 from flask import json, request, Response, Blueprint, g
 from ..models.globalT import GlobalModel, GlobalSchema
 
-
 global_api = Blueprint('Globaltweets', __name__)
 global_schema = GlobalSchema()
 
@@ -48,7 +47,6 @@ def global_trending():
 
             globaltweet = GlobalModel(data)
             globaltweet.save()
-
 
     tweets = GlobalModel.getGlobal()
     data = global_schema.dump(tweets, many=True).data

@@ -5,6 +5,7 @@ from ..doc import *
 import requests
 from flask import Response, json
 
+
 class GlobalModel(db.Model):
     __tablename__ = 'globalTweets'
 
@@ -29,12 +30,10 @@ class GlobalModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-
     @staticmethod
     def clear():
         num_rows_deleted = db.session.query(GlobalModel).delete()
         db.session.commit()
-
 
     @staticmethod
     def getGlobal():
