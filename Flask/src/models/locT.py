@@ -6,8 +6,8 @@ import requests
 from flask import Response, json
 
 
-class GlobalModel(db.Model):
-    __tablename__ = 'globalTweets'
+class LocModel(db.Model):
+    __tablename__ = 'locTrends'
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(500), nullable=False)
@@ -30,15 +30,35 @@ class GlobalModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
+
     @staticmethod
     def clear():
-        num_rows_deleted = db.session.query(GlobalModel).delete()
+        num_rows_deleted = db.session.query(LocModel).delete()
         db.session.commit()
 
-    @staticmethod
-    def getGlobal():
-        return GlobalModel.query.all()
 
+    @staticmethod
+    def getLoc():
+        return LocModel.query.all()
+
+
+    @staticmethod
+    def getCoords(location):
+        r = requests.get(f'http://www.mapquestapi.com/geocoding/v1/address?key=G7GTGs1Pf62DjHNWUAcsu8Jn7bxjNJvz&location={location}')
+        for i in r.json()['results']:
+                x = i['locations'][0]['latLng']
+                lat = x['lat']
+                lng = x['lng']
+        return lat, lng
+
+
+    @staticmethod
+    def woeid(coords):
+        lat = coords[0]
+        lng = coords[1]
+        location = tweepyAPI.trends_closest(lat, lng)
+        x = location[0]['woeid']
+        return x
 
 
 def custom_response(res, status_code):
@@ -49,7 +69,7 @@ def custom_response(res, status_code):
     )
 
 
-class GlobalSchema(Schema):
+class LocSchema(Schema):
     id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
     url = fields.Str(required=True)
