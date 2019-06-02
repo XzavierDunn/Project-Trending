@@ -8,6 +8,12 @@ from ..models.locT import LocModel, LocSchema
 loc_api = Blueprint('LocTweets', __name__)
 loc_schema = LocSchema()
 
+
+@loc_api.route('/clear', methods=['GET'])
+def clear():
+    LocModel.clear()
+    print('cleared =========================================')
+
 # Endpoint for location based trends on twitter
 @loc_api.route('<location>/', methods=['GET'])
 def locate_trending(location):

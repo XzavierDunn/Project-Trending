@@ -23,19 +23,19 @@ def global_trending():
     trending = tweepyAPI.trends_place(1)
     x = json.dumps(trending)
     for i in trending:
-        for trends in i['trends']:        
-            if trends['name'] == None:
+        for trends in i['trends']:
+            if trends['name'] is None:
                 trends['name'] = 'N/A'
 
-            if trends['url'] == None:
+            if trends['url'] is None:
                 trends['url'] = 'N/A'
 
-            if trends['tweet_volume'] == None:
+            if trends['tweet_volume'] is None:
                 trends['tweet_volume'] = 0
 
             x = {
                 'name': trends['name'],
-                'url' : trends['url'],
+                'url': trends['url'],
                 'tweets': trends['tweet_volume']
             }
 
