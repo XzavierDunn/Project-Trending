@@ -14,30 +14,32 @@ def clear():
     LocModel.clear()
     print('cleared =========================================')
 
-# Endpoint for location based trends on twitter
+
 @loc_api.route('<location>/', methods=['GET'])
 def locate_trending(location):
+    """
+    Endpoint for location based trends on twitter
+    """
     LocModel.clear()
-    # staticmethod that takes in a location and returns coordinates
     str(location)
     coords = LocModel.getCoords(location)
     woeid = LocModel.woeid(coords)
     trending = tweepyAPI.trends_place(woeid)
     x = json.dumps(trending)
     for i in trending:
-        for trends in i['trends']:        
-            if trends['name'] == None:
+        for trends in i['trends']:
+            if not trends['name']:
                 trends['name'] = 'N/A'
 
-            if trends['url'] == None:
+            if not trends['url']:
                 trends['url'] = 'N/A'
 
-            if trends['tweet_volume'] == None:
+            if not trends['tweet_volume']:
                 trends['tweet_volume'] = 0
 
             x = {
                 'name': trends['name'],
-                'url' : trends['url'],
+                'url': trends['url'],
                 'tweets': trends['tweet_volume']
             }
 
@@ -53,12 +55,13 @@ def locate_trending(location):
     tweets = LocModel.getLoc()
     data = loc_schema.dump(tweets, many=True).data
     return custom_response(data, 200)
- 
 
 
-# Endpoint to return whats in the db
 @loc_api.route('/', methods=['GET'])
 def glob():
+    """
+    Endpoint to return whats in the db
+    """
     x = LocModel.getLoc()
     data = loc_schema.dump(x, many=True).data
     return custom_response(data, 200)

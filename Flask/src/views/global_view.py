@@ -7,16 +7,22 @@ from ..models.globalT import GlobalModel, GlobalSchema
 global_api = Blueprint('Globaltweets', __name__)
 global_schema = GlobalSchema()
 
-# Endpoint to return whats in the db
+
 @global_api.route('/', methods=['GET'])
 def glob():
+    """
+    Endpoint to return whats in the db
+    """
     x = GlobalModel.getGlobal()
     data = global_schema.dump(x, many=True).data
     return custom_response(data, 200)
 
-# Endpoint to return whatever is globally trending on twitter and save it
+
 @global_api.route('glob/', methods=['GET'])
 def global_trending():
+    """
+    Endpoint to return whatever is globally trending on twitter and save it
+    """
     GlobalModel.clear()
     tweets = GlobalModel.getGlobal()
 
