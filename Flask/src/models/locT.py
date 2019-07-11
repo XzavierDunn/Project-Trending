@@ -30,17 +30,14 @@ class LocModel(db.Model):
         db.session.delete(self)
         db.session.commit()
 
-
     @staticmethod
     def clear():
         num_rows_deleted = db.session.query(LocModel).delete()
         db.session.commit()
 
-
     @staticmethod
     def getLoc():
         return LocModel.query.all()
-
 
     @staticmethod
     def getCoords(location):
@@ -50,7 +47,6 @@ class LocModel(db.Model):
                 lat = x['lat']
                 lng = x['lng']
         return lat, lng
-
 
     @staticmethod
     def woeid(coords):
