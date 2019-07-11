@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from .config import app_config
@@ -11,6 +12,7 @@ def create_app(env_name):
     app = Flask(__name__)
     CORS(app)
 
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     app.config.from_object(app_config['development'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['CORS_HEADERS'] = 'application/json'
