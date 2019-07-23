@@ -13,7 +13,7 @@ def create_app(env_name):
     app = Flask(__name__)
     CORS(app)
 
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+    SQLALCHEMY_DATABASE_URI = 'postgres://newtestuser:masterpass12@testid.csrw9zlcpo5t.us-east-1.rds.amazonaws.com/trenddb'
     app.config.from_object(app_config['development'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['CORS_HEADERS'] = 'application/json'
