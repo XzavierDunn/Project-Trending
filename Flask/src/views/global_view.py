@@ -1,5 +1,5 @@
 
-from ..doc import *
+from ..doc import tweepyAPI
 import json
 from flask import json, request, Response, Blueprint, g
 from ..models.globalT import GlobalModel, GlobalSchema
