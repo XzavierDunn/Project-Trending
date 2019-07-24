@@ -6,11 +6,11 @@ from flask_migrate import Migrate, MigrateCommand
 from src.app import create_app, db
 
 env_name = os.getenv('FLASK_ENV')
-app = create_app(env_name)
+application = create_app(env_name)
 
-migrate = Migrate(app=app, db=db)
+migrate = Migrate(app=application, db=db)
 
-manager = Manager(app=app)
+manager = Manager(app=application)
 
 manager.add_command('db', MigrateCommand)
 
