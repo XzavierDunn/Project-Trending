@@ -1,6 +1,6 @@
 import os 
 
-from proj.src.run import create_app
+from proj.src.app import create_app
 
 env_name = os.getenv('FLASK_ENV')
 application = create_app(env_name)
