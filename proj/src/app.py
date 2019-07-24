@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-from flask_cors import CORS
+# from flask_cors import CORS
 from .config import app_config
 from .models import db, bcrypt
 
@@ -11,7 +11,7 @@ from .views.home_view import home_api as home_blueprint
 
 def create_app(env_name):
     app = Flask(__name__)
-    CORS(app)
+#    CORS(app)
 
     SQLALCHEMY_DATABASE_URI = 'postgres://newtestuser:masterpass12@testid.csrw9zlcpo5t.us-east-1.rds.amazonaws.com/trenddb'
     app.config.from_object(app_config['development'])
