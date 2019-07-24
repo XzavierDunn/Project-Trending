@@ -1,6 +1,6 @@
 import os
 from flask import Flask
-# from flask_cors import CORS
+from flask_cors import CORS
 from .config import app_config
 from .models import db, bcrypt
 
@@ -11,12 +11,12 @@ from .views.home_view import home_api as home_blueprint
 
 def create_app(env_name):
     app = Flask(__name__)
-#    CORS(app)
+    CORS(app)
 
     SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
     app.config.from_object(app_config['development'])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    #app.config['CORS_HEADERS'] = 'application/json'
+    app.config['CORS_HEADERS'] = 'application/json'
 
     app.register_blueprint(global_blueprint, url_prefix='/api/v1/global')
     app.register_blueprint(loc_blueprint, url_prefix='/api/v1/loc')
