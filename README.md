@@ -13,7 +13,6 @@ export access_token='Access token'
 export access_token_secret='Access token secret'
 ```
 
-The api I will be using for my endpoints is "Tweepy"
 Tweepy - http://docs.tweepy.org
 Tweepy Github - https://github.com/tweepy/tweepy
 
